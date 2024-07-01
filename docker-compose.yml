@@ -1,6 +1,14 @@
 version: '3.9'
 
 services:
+  social-network: # Сервер Express
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: 'postgresql://postgres_user:postgres_password@postgres:5432/postgres_db'
   postgres:
     image: postgres:latest
     container_name: postgres_container
