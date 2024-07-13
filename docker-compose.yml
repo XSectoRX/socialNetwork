@@ -7,9 +7,10 @@ services:
       - '3000:3000'
     depends_on:
       - postgres
+      - react-app
     environment:
       DATABASE_URL: 'postgresql://postgres_user:postgres_password@postgres:5432/postgres_db'
-  postgres:
+  postgres: # База данных
     image: postgres:latest
     container_name: postgres_container
     environment:
@@ -45,7 +46,13 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
+  react-app: # React-приложение
+    build: ../reactSocialNetwork # Путь к вашему React-приложению относительно корня вашего проекта
+    ports:
+      - '80:80' # Порт, на котором будет доступно ваше React-приложение
+      - '8000:8000' # Порт, на котором будет доступно ваше React-приложение
 
 volumes:
   pgdata:
     driver: local
+  react_app: # Объявление именованного тома
